@@ -13,6 +13,13 @@ make all
 
 ## Environment variables
 
+The following environment variables can further configure the system:
+
+|                     |                                                                |
+|---------------------|----------------------------------------------------------------|
+| `USERS`             | Space-separated list of users; either by name or by `uid:name` |
+
+
 The following environment variables are for troubleshooting purposes and
 usually require no configuration:
 
@@ -29,6 +36,7 @@ brackets):
 docker run --init \
     -v $PWD/test/smb.conf:/etc/samba/smb.conf \
     -v /tmp:/share/test \
+    -e USERS="1000:test1;test2"
     --network=host \
     -p 445:445 \
     medo64/samba:latest
