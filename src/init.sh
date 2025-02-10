@@ -6,9 +6,9 @@ ANSI_RESET="\e[0m"
 echo -e "${ANSI_MAGENTA}Entrypoint reached${ANSI_RESET}"
 echo
 
-if [ -z "$DEBUGLEVEL" ]; then
-    DEBUGLEVEL=0
-fi
+if [ -z "$DEBUGLEVEL" ]; then DEBUGLEVEL=0; fi
+echo -e "${ANSI_MAGENTA}Using debug level $DEBUGLEVEL${ANSI_RESET}"
+echo
 
 USERS=`echo "$USERS" | tr ';' ' ' | xargs`
 if ! [ -z "$USERS" ]; then
