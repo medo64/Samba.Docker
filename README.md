@@ -25,7 +25,7 @@ usually require no configuration:
 
 |                     |                                                 |
 |---------------------|-------------------------------------------------|
-| `DEBUGLEVEL`        | Value from `0` to `10`; if not set, `0` is used |
+| `DEBUG_LEVEL`       | Value from `0` to `10`; if not set, `0` is used |
 
 
 ## Run Docker Image

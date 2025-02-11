@@ -6,8 +6,8 @@ ANSI_RESET="\e[0m"
 echo -e "${ANSI_MAGENTA}Entrypoint reached${ANSI_RESET}"
 echo
 
-if [ -z "$DEBUGLEVEL" ]; then DEBUGLEVEL=0; fi
-echo -e "${ANSI_MAGENTA}Using debug level $DEBUGLEVEL${ANSI_RESET}"
+if [ -z "$DEBUG_LEVEL" ]; then DEBUG_LEVEL=0; fi
+echo -e "${ANSI_MAGENTA}Using debug level $DEBUG_LEVEL${ANSI_RESET}"
 echo
 
 if [ "$EXPLICIT_NETWORK_CONFIG" == "1" ] || [ "$EXPLICIT_NETWORK_CONFIG" == "true" ] || [ "$EXPLICIT_NETWORK_CONFIG" == "yes" ]; then
@@ -35,8 +35,8 @@ if ! [ -z "$USERS" ]; then
 fi
 
 if [ $EXPLICIT_NETWORK_CONFIG -eq 0 ]; then
-    smbd --foreground --no-process-group --debuglevel=$DEBUGLEVEL --debug-stdout \
+    smbd --foreground --no-process-group --debuglevel=$DEBUG_LEVEL --debug-stdout \
          --option=interfaces=* --option=bind\ interfaces\ only=no --option=hosts\ allow=0.0.0.0.0/0 --option=hosts\ deny=0.0.0.0.0/32
 else
-    smbd --foreground --no-process-group --debuglevel=$DEBUGLEVEL --debug-stdout
+    smbd --foreground --no-process-group --debuglevel=$DEBUG_LEVEL --debug-stdout
 fi
