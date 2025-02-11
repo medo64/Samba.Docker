@@ -11,14 +11,13 @@ make all
 ~~~
 
 
-## Environment variables
+## Environment Variables
 
 The following environment variables can further configure the system:
 
-|                           |                                                                |
-|---------------------------|----------------------------------------------------------------|
-| `USERS`                   | Space-separated list of users; either by name or by `uid:name` |
-| `EXPLICIT_NETWORK_CONFIG` | If set to `1`, system will allow for more interface control in `smb.conf` but at a cost of having to use `--network=host` |
+|                     |                                                                |
+|---------------------|----------------------------------------------------------------|
+| `USERS`             | Space-separated list of users; either by name or by `uid:name` |
 
 The following environment variables are for troubleshooting purposes and
 usually require no configuration:
@@ -26,6 +25,20 @@ usually require no configuration:
 |                     |                                                 |
 |---------------------|-------------------------------------------------|
 | `DEBUG_LEVEL`       | Value from `0` to `10`; if not set, `0` is used |
+
+
+## Network Settings
+
+If you don't want to run container with `--network=host`, please make sure that
+your `smb.conf` doesn't contain the following settings:
+* `interfaces`
+* `bind interfaces only`
+* `hosts allow`
+* `hosts deny`
+
+If some of these are set, you will run into communication problems (due to
+docker IPs potentially being out of allowed range) or you will have issues
+starting container unless `--network=host` is set.
 
 
 ## Run Docker Image
