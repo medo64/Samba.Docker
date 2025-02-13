@@ -3,14 +3,6 @@
 Docker container for Samba service.
 
 
-## Create Docker Image
-
-To create docker image run make:
-~~~bash
-make all
-~~~
-
-
 ## Environment Variables
 
 The following environment variables can further configure the system:
@@ -53,4 +45,14 @@ docker run --init \
     --network=host \
     -p 445:445 \
     medo64/samba:latest
+~~~
+
+
+## Build Docker Image
+
+If you want to build docker image for yourself, instead using one available on
+[DockerHub](https://hub.docker.com/repository/docker/medo64/samba/general), you
+can do so using `make`:
+~~~bash
+make all
 ~~~
