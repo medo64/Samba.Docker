@@ -37,5 +37,14 @@ else
 endif
 
 publish: all
-	docker tag samba:unstable medo64/samba:unstable
-	docker push medo64/samba:unstable
+ifneq ($(TAG),)
+	echo
+	docker tag $(NAME):$(TAG) medo64/$(NAME):$(TAG)
+	docker push medo64/$(NAME):$(TAG)
+	echo
+	docker tag $(NAME):latest medo64/$(NAME):latest
+	docker push medo64/$(NAME):latest
+endif
+	echo
+	docker tag $(NAME):unstable medo64/$(NAME):unstable
+	docker push medo64/$(NAME):unstable
