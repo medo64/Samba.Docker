@@ -26,4 +26,7 @@ if ! [ -z "$USERS" ]; then
     echo
 fi
 
+echo -e "${ANSI_MAGENTA}$(smbd --version)${ANSI_RESET}"
+echo
+
 smbd --foreground --no-process-group --debuglevel=$DEBUG_LEVEL --debug-stdout

@@ -5,16 +5,16 @@ USER root
 # Samba
 RUN apk add samba-server
 
-# Directories
-RUN mkdir /share/
-
 # Expose
 EXPOSE 445/tcp
 
 # Executables
 WORKDIR /app
-COPY src/init.sh /app/init
-RUN chmod +x /app/init
+COPY src/init.sh init
+RUN chmod +x init
+
+# Workdir
+WORKDIR /srv
 
 # Done
 ENTRYPOINT ["/app/init"]
