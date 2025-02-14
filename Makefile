@@ -1,4 +1,4 @@
-.PHONY: all
+.PHONY: all publish
 
 NAME=samba
 TAG=
@@ -26,3 +26,7 @@ ifneq ($(TAG),)
 else
 	@docker build -t $(NAME):unstable -f src/Dockerfile .
 endif
+
+publish: all
+	docker tag samba:unstable medo64/samba:unstable
+	docker push medo64/samba:unstable
