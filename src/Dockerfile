@@ -8,6 +8,10 @@ RUN apk add samba-server
 # Expose
 EXPOSE 445/tcp
 
+# Environment
+ENV ENV=/etc/profile
+RUN echo "alias ll='ls -la'" > /etc/profile.d/alias.sh
+
 # Executables
 WORKDIR /app
 COPY src/init.sh init
