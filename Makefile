@@ -1,10 +1,10 @@
 #~ Docker Project
 
 .PHONY: default docker publish
-default: docker
+default: package
 
-docker:                 # Build the docker image
-	@./make.sh docker
+package:                 # Build the docker image
+	@./Make.sh package
 
 publish:                # Publish the docker image
-	@./make.sh publish
+	@./Make.sh publish
