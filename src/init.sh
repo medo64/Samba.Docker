@@ -6,12 +6,22 @@ function log() {  # log LEVEL TEXT
     FLOG_LEVEL="$1"
     FLOG_TEXT="$2"
 
+    LOG_LEVEL_INDEX=2
+    case $LOG_LEVEL in
+        TRACE) LOG_LEVEL_INDEX=0 ;;
+        DEBUG) LOG_LEVEL_INDEX=1 ;;
+        INFO*) LOG_LEVEL_INDEX=2 ;;
+        WARN*) LOG_LEVEL_INDEX=3 ;;
+        ERROR) LOG_LEVEL_INDEX=4 ;;
+        FATAL) LOG_LEVEL_INDEX=5 ;;
+    esac
+
     case $FLOG_LEVEL in
-        TRACE) printf "\e[34m$FLOG_TIME TRACE \e[34m$FLOG_CATEGORY: $FLOG_TEXT\e[0m\n" ;;
-        DEBUG) printf "\e[34m$FLOG_TIME DEBUG \e[94m$FLOG_CATEGORY: $FLOG_TEXT\e[0m\n" ;;
-        INFO)  printf "\e[36m$FLOG_TIME INFO  \e[96m$FLOG_CATEGORY: $FLOG_TEXT\e[0m\n" ;;
-        WARN)  printf "\e[33m$FLOG_TIME WARN  \e[93m$FLOG_CATEGORY: $FLOG_TEXT\e[0m\n" >&2 ;;
-        ERROR) printf "\e[31m$FLOG_TIME ERROR \e[91m$FLOG_CATEGORY: $FLOG_TEXT\e[0m\n" >&2 ;;
+        TRACE) [ 0 -ge "$LOG_LEVEL_INDEX" ] && printf "\e[34m$FLOG_TIME TRACE \e[34m$FLOG_CATEGORY: $FLOG_TEXT\e[0m\n" ;;
+        DEBUG) [ 1 -ge "$LOG_LEVEL_INDEX" ] && printf "\e[34m$FLOG_TIME DEBUG \e[94m$FLOG_CATEGORY: $FLOG_TEXT\e[0m\n" ;;
+        INFO)  [ 2 -ge "$LOG_LEVEL_INDEX" ] && printf "\e[36m$FLOG_TIME INFO  \e[96m$FLOG_CATEGORY: $FLOG_TEXT\e[0m\n" ;;
+        WARN)  [ 3 -ge "$LOG_LEVEL_INDEX" ] && printf "\e[33m$FLOG_TIME WARN  \e[93m$FLOG_CATEGORY: $FLOG_TEXT\e[0m\n" >&2 ;;
+        ERROR) [ 4 -ge "$LOG_LEVEL_INDEX" ] && printf "\e[31m$FLOG_TIME ERROR \e[91m$FLOG_CATEGORY: $FLOG_TEXT\e[0m\n" >&2 ;;
         FATAL) printf "\e[31m$FLOG_TIME FATAL \e[1;91m$LOG_CATEGORY: $LOG_TEXT\e[0m\n" >&2 ;;
         *)     printf "$FLOG_TIME  ???  $FLOG_CATEGORY: $FLOG_TEXT\n" ;;
     esac
