@@ -1,4 +1,5 @@
 #!/bin/sh
+SCRIPT_NAME=`basename $0`
 
 function log() {  # log LEVEL TEXT
     FLOG_TIME="`date +'%F'` `nmeter -d0 '%3t' | head -n1`"
@@ -27,9 +28,17 @@ function log() {  # log LEVEL TEXT
     esac
 }
 
-exec 28433> /var/lock/entrypoint.lock
-flock -n 28433 || { log ERROR "Script is already running" ; exit 113; }
-
+PID_FILE="/var/run/.$SCRIPT_NAME.pid"
+if [ -e "$PID_FILE" ]; then
+    PID_LAST=$(cat "$PID_FILE")
+    if ps -axo pid | grep -q "^ *$PID_LAST\$"; then
+        echo "${ANSI_RED}$SCRIPT_NAME: script is already running!${ANSI_RESET}" >&2
+        exit 255
+    fi
+fi
+echo $$ > $PID_FILE
+trap "rm $PID_FILE 2>/dev/null" 0
+trap "exit 113" INT TERM
 
 USERS=`echo "$USERS" | tr ';' ' ' | xargs`
 if ! [ -z "$USERS" ]; then
