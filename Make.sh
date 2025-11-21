@@ -35,7 +35,7 @@ PROJECT_NAME=$( cat "$SCRIPT_DIR/.meta" | grep -E "^PROJECT_NAME:" | sed  -n 1p 
 echo "${ANSI_PURPLE}Project name ...: ${ANSI_MAGENTA}$PROJECT_NAME${ANSI_RESET}"
 
 
-GIT_VERSION=$( git tag --points-at HEAD | grep --color=always -E '^v[0-9]+\.[0-9]+\.[0-9]+$' | sed -n 1p | sed 's/^v//g' | xargs )
+GIT_VERSION=$( git tag --points-at HEAD | grep -E '^v[0-9]+\.[0-9]+\.[0-9]+$' | sed -n 1p | sed 's/^v//g' | xargs )
 GIT_INDEX=$( git rev-list --count HEAD )
 GIT_HASH=$( git log -n 1 --format=%h )
 
